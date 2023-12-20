@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD first Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <section id="pform" class="my-5 d-flex flex-column justify-content-center align-items-center">
+            <h1>Tech Products</h1>
+
+            <form class="w-50">
+                <div class="mb-3">
+                    <label for="pName" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" id="pName">
+                    <span class="text-danger d-none">Please enter valid name</span>
+                </div>
+                <div class="mb-3">
+                    <label for="pPrice" class="form-label">Product Price</label>
+                    <input type="number" class="form-control" id="pPrice">
+                    <span class="text-danger d-none">Please enter price between 1000 : 10000</span>
+                </div>
+                <div class="mb-3">
+                    <label for="pCategory" class="form-label">Product Category</label>
+                    <input type="text" class="form-control" id="pCategory">
+                    <span class="text-danger d-none">Please enter one of 3 (phone, table, smartwatch)</span>
+                </div>
+                <div class="mb-3">
+                    <label for="pDes" class="form-label">Product Description</label>
+                    <textarea name="pDes" class="form-control" id="pDes" cols="30" rows="2" placeholder="Write in less than 250 charecters"></textarea>
+                    <span class="text-danger d-none">Please enter less than 250 letter</span>
+                </div>
+
+                <button type="submit" id="addBtn" class="btn btn-outline-primary">Add Product</button>
+                <button id="updateProduct" class="btn btn-outline-primary d-none">Update Product</button>
+            </form>
+
+            <div class="mt-5 w-50 ">
+                <label for="Psearch" class="form-label">Search a Product</label>
+                <input type="text" class="form-control" id="Psearch" oninput="searchProduct()">
+            </div>
+
+            <table class="table w-75 mt-4 table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Index</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product Price</th>
+                        <th scope="col">Product Category</th>
+                        <th scope="col">Product Description</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="productFrmBody">
+
+                </tbody>
+                <span class="text-danger d-none">No product matches your input</span>
+            </table>
+        </section>
+    </div>
+
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

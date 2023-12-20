@@ -1,0 +1,12 @@
+#pform form textarea{
+    resize: none;
+}
+body{
+    background-color: #FFECD6;
+    color: #3559E0;
+    font-family: 'Lato', sans-serif;
+}
+h1{
+    color: #0F2167;
+    font-weight: 700;
+}
