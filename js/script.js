@@ -11,6 +11,7 @@ var addBtn = document.getElementById("addBtn");
 var updateBtn = document.getElementById("updateProduct");
 var productList = [];
 var editIndex = -1;
+var searchIndex =-1;
 var localStorKey = "allProducts";
 
 addBtn.addEventListener("click", addRecord);
@@ -34,6 +35,7 @@ function addRecord(e) {
       price: pPrice.value,
       category: pCategory.value,
       des: pDes.value,
+      index: productList.length,
     };
     productList.push(product);
     addToLocalStorage();
@@ -91,12 +93,16 @@ function updateRow(e) {
     category: pCategory.value,
     des: pDes.value,
   };
-
-  productList.splice(editIndex, 1, product);
+  
+   var indexToUpdate = editIndex !== false ? editIndex : searchIndex;
+ 
+  productList.splice(indexToUpdate, 1, product);
   addToLocalStorage();
   showInTable(productList);
   resetProductTable();
-
+  
+ editIndex = false;
+  
   addBtn.classList.remove("d-none");
   updateBtn.classList.add("d-none");
 }
@@ -111,9 +117,11 @@ function searchProduct() {
       //  prettier-ignore
       productList[i].newName = productList[i].name.replace(regex, function (match) {
           return `<span class="text-danger fw-bolder">${match}</span>`;
+        
         }
       );
       matchedList.push(productList[i]);
+      searchIndex = matchedList[i].index;
     }
   }
 
