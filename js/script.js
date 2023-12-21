@@ -168,7 +168,7 @@ function productNameValidate() {
   } else {
     errorMsg[3].classList.replace("d-none", "d-inline-block");
   }
-  var isValid = isNameValid && isPriceValid && isCatValid && isDesValid;
-
+//  var isValid = isNameValid && isPriceValid && isCatValid && isDesValid;
+var isValid = true;
   return isValid;
 }
