@@ -12,7 +12,6 @@ var updateBtn = document.getElementById("updateProduct");
 var productList = [];
 var matchedList = [];
 var editIndex = -1;
-var searchIndex =-1;
 var localStorKey = "allProducts";
 
 addBtn.addEventListener("click", addRecord);
@@ -36,7 +35,6 @@ function addRecord(e) {
       price: pPrice.value,
       category: pCategory.value,
       des: pDes.value,
-      index: productList.length,
     };
     productList.push(product);
     addToLocalStorage();
@@ -90,7 +88,8 @@ function editRow(i) {
     originalIndex = i;
   }
 
-  /////////////////
+  console.log(originalIndex);
+
   pName.value = productList[originalIndex].name;
   pPrice.value = productList[originalIndex].price;
   pCategory.value = productList[originalIndex].category;
@@ -109,7 +108,6 @@ function updateRow(e) {
     category: pCategory.value,
     des: pDes.value,
   };
-<<<<<<< HEAD
 
   deleteNewName();
   productList.splice(editIndex, 1, product);
@@ -119,18 +117,6 @@ function updateRow(e) {
 
   editIndex = -1;
 
-=======
-  
-   var indexToUpdate = editIndex !== false ? editIndex : searchIndex;
- 
-  productList.splice(indexToUpdate, 1, product);
-  addToLocalStorage();
-  showInTable(productList);
-  resetProductTable();
-  
- editIndex = false;
-  
->>>>>>> 73b6a2c58325043e43deace03943db37de1ec2c2
   addBtn.classList.remove("d-none");
   updateBtn.classList.add("d-none");
 }
@@ -151,15 +137,9 @@ function searchProduct() {
       //  prettier-ignore
       productList[i].newName = productList[i].name.replace(regex, function (match) {
           return `<span class="text-danger fw-bolder">${match}</span>`;
-        
         }
       );
-<<<<<<< HEAD
       matchedList.push({ ...productList[i], originalIndex: i });
-=======
-      matchedList.push(productList[i]);
-      searchIndex = matchedList[i].index;
->>>>>>> 73b6a2c58325043e43deace03943db37de1ec2c2
     }
   }
 
@@ -205,7 +185,7 @@ function productNameValidate() {
   } else {
     errorMsg[3].classList.replace("d-none", "d-inline-block");
   }
-//  var isValid = isNameValid && isPriceValid && isCatValid && isDesValid;
-var isValid = true;
+  var isValid = isNameValid && isPriceValid && isCatValid && isDesValid;
+
   return isValid;
 }
