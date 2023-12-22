@@ -29,7 +29,7 @@ function addToLocalStorage() {
 function addRecord(e) {
   e.preventDefault();
 
-  if (productNameValidate()) {
+  if (newValidation()) {
     var product = {
       name: pName.value,
       price: pPrice.value,
@@ -102,23 +102,27 @@ function editRow(i) {
 
 function updateRow(e) {
   e.preventDefault();
-  var product = {
-    name: pName.value,
-    price: pPrice.value,
-    category: pCategory.value,
-    des: pDes.value,
-  };
 
-  deleteNewName();
-  productList.splice(editIndex, 1, product);
-  addToLocalStorage();
-  showInTable(productList);
-  resetProductTable();
+  if (newValidation()) {
+    console.log(newValidation());
+    var product = {
+      name: pName.value,
+      price: pPrice.value,
+      category: pCategory.value,
+      des: pDes.value,
+    };
 
-  editIndex = -1;
-  document.getElementById("Psearch").value = "";
-  addBtn.classList.remove("d-none");
-  updateBtn.classList.add("d-none");
+    deleteNewName();
+    productList.splice(editIndex, 1, product);
+    addToLocalStorage();
+    showInTable(productList);
+    resetProductTable();
+
+    editIndex = -1;
+    document.getElementById("Psearch").value = "";
+    addBtn.classList.remove("d-none");
+    updateBtn.classList.add("d-none");
+  }
 }
 
 function deleteNewName() {
@@ -151,41 +155,67 @@ function searchProduct() {
   showInTable(matchedList);
 }
 
-function productNameValidate() {
+function newValidation() {
   var nameRegex = /^([a-z]{2,}\d{0,}([\s]){0,1}){1,2}$/gi;
   var priceRegex = /^(?!0)([0-9]{4}|10000)$/;
   var catRegex = /^((p|P)hone|(t|T)ablet|(s|S)martwatch)$/;
-  var desRegex = /^([a-z]|[0-9]|\s|\W){1,250}$/;
+  var desRegex = /^(?![\s\W]*$)([a-z]|[0-9]|\s|\W){1,250}$/;
 
-  var isNameValid = nameRegex.test(pName.value);
-  var isPriceValid = priceRegex.test(pPrice.value);
-  var isCatValid = catRegex.test(pCategory.value);
-  var isDesValid = desRegex.test(pDes.value);
+  var validArr = [nameRegex, priceRegex, catRegex, desRegex];
+  var inputs = document.querySelectorAll(".form-input");
+  var isValidArr = [];
 
-  if (isNameValid) {
-    errorMsg[0].classList.replace("d-inline-block", "d-none");
-  } else {
-    errorMsg[0].classList.replace("d-none", "d-inline-block");
+  for (var i = 0; i < inputs.length; i++) {
+    if (validArr[i].test(inputs[i].value)) {
+      errorMsg[i].classList.replace("d-inline-block", "d-none");
+      isValidArr.push(i);
+    } else {
+      errorMsg[i].classList.replace("d-none", "d-inline-block");
+    }
   }
-
-  if (isPriceValid) {
-    errorMsg[1].classList.replace("d-inline-block", "d-none");
+  if (isValidArr.length == inputs.length) {
+    var isValid = true;
   } else {
-    errorMsg[1].classList.replace("d-none", "d-inline-block");
+    isValid = false;
   }
-
-  if (isCatValid) {
-    errorMsg[2].classList.replace("d-inline-block", "d-none");
-  } else {
-    errorMsg[2].classList.replace("d-none", "d-inline-block");
-  }
-
-  if (isDesValid) {
-    errorMsg[3].classList.replace("d-inline-block", "d-none");
-  } else {
-    errorMsg[3].classList.replace("d-none", "d-inline-block");
-  }
-  var isValid = isNameValid && isPriceValid && isCatValid && isDesValid;
-
   return isValid;
 }
+
+// function productNameValidate() {
+//   var nameRegex = /^([a-z]{2,}\d{0,}([\s]){0,1}){1,2}$/gi;
+//   var priceRegex = /^(?!0)([0-9]{4}|10000)$/;
+//   var catRegex = /^((p|P)hone|(t|T)ablet|(s|S)martwatch)$/;
+//   var desRegex = /^([a-z]|[0-9]|\s|\W){1,250}$/;
+
+//   var isNameValid = nameRegex.test(pName.value);
+//   var isPriceValid = priceRegex.test(pPrice.value);
+//   var isCatValid = catRegex.test(pCategory.value);
+//   var isDesValid = desRegex.test(pDes.value);
+
+//   if (isNameValid) {
+//     errorMsg[0].classList.replace("d-inline-block", "d-none");
+//   } else {
+//     errorMsg[0].classList.replace("d-none", "d-inline-block");
+//   }
+
+//   if (isPriceValid) {
+//     errorMsg[1].classList.replace("d-inline-block", "d-none");
+//   } else {
+//     errorMsg[1].classList.replace("d-none", "d-inline-block");
+//   }
+
+//   if (isCatValid) {
+//     errorMsg[2].classList.replace("d-inline-block", "d-none");
+//   } else {
+//     errorMsg[2].classList.replace("d-none", "d-inline-block");
+//   }
+
+//   if (isDesValid) {
+//     errorMsg[3].classList.replace("d-inline-block", "d-none");
+//   } else {
+//     errorMsg[3].classList.replace("d-none", "d-inline-block");
+//   }
+//   var isValid = isNameValid && isPriceValid && isCatValid && isDesValid;
+
+//   return isValid;
+// }
