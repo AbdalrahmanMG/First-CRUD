@@ -10,6 +10,7 @@ var prouctTable = document.getElementById("productFrmBody");
 var addBtn = document.getElementById("addBtn");
 var updateBtn = document.getElementById("updateProduct");
 var productList = [];
+var matchedList = [];
 var editIndex = -1;
 var localStorKey = "allProducts";
 
@@ -65,22 +66,38 @@ function resetProductTable() {
   pDes.value = "";
 }
 
-function deleteRow(index) {
-  productList.splice(index, 1);
+function deleteRow(i) {
+  var originalIndex;
+  if (matchedList[i]) {
+    originalIndex = matchedList[i].originalIndex;
+  } else {
+    originalIndex = i;
+  }
+
+  productList.splice(originalIndex, 1);
+  deleteNewName();
   addToLocalStorage();
   showInTable(productList);
 }
 
 function editRow(i) {
-  pName.value = productList[i].name;
-  pPrice.value = productList[i].price;
-  pCategory.value = productList[i].category;
-  pDes.value = productList[i].des;
+  var originalIndex;
+  if (matchedList[i]) {
+    originalIndex = matchedList[i].originalIndex;
+  } else {
+    originalIndex = i;
+  }
+
+  console.log(originalIndex);
+
+  pName.value = productList[originalIndex].name;
+  pPrice.value = productList[originalIndex].price;
+  pCategory.value = productList[originalIndex].category;
+  pDes.value = productList[originalIndex].des;
 
   addBtn.classList.add("d-none");
   updateBtn.classList.remove("d-none");
-  editIndex = i;
-  console.log(i);
+  editIndex = originalIndex;
 }
 
 function updateRow(e) {
@@ -92,20 +109,29 @@ function updateRow(e) {
     des: pDes.value,
   };
 
+  deleteNewName();
   productList.splice(editIndex, 1, product);
   addToLocalStorage();
   showInTable(productList);
   resetProductTable();
 
+  editIndex = -1;
+
   addBtn.classList.remove("d-none");
   updateBtn.classList.add("d-none");
 }
 
+function deleteNewName() {
+  productList.forEach(function (product) {
+    delete product.newName;
+  });
+}
+
 function searchProduct() {
-  var matchedList = [];
+  matchedList = [];
   var keySearch = document.getElementById("Psearch").value;
   var regex = new RegExp(keySearch, "gi");
-
+  console.log(regex);
   for (var i = 0; i < productList.length; i++) {
     if (productList[i].name.toLowerCase().includes(keySearch.toLowerCase())) {
       //  prettier-ignore
@@ -113,7 +139,7 @@ function searchProduct() {
           return `<span class="text-danger fw-bolder">${match}</span>`;
         }
       );
-      matchedList.push(productList[i]);
+      matchedList.push({ ...productList[i], originalIndex: i });
     }
   }
 
@@ -122,7 +148,6 @@ function searchProduct() {
   } else {
     errorMsg[4].classList.replace("d-none", "d-inline-block");
   }
-  console.log(matchedList.length);
   showInTable(matchedList);
 }
 
