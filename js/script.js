@@ -88,8 +88,7 @@ function editRow(i) {
     originalIndex = i;
   }
 
-  console.log(originalIndex);
-
+  /////////////////
   pName.value = productList[originalIndex].name;
   pPrice.value = productList[originalIndex].price;
   pCategory.value = productList[originalIndex].category;
