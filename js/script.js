@@ -116,7 +116,7 @@ function updateRow(e) {
   resetProductTable();
 
   editIndex = -1;
-
+  document.getElementById("Psearch").value = "";
   addBtn.classList.remove("d-none");
   updateBtn.classList.add("d-none");
 }
