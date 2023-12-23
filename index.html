@@ -11,61 +11,72 @@
 </head>
 
 <body>
-    <div class="container">
-        <section id="pform" class="my-5 d-flex flex-column justify-content-center align-items-center">
-            <h1>Tech Products</h1>
 
-            <form class="w-50">
-                <div class="mb-3">
-                    <label for="pName" class="form-label">Product Name</label>
-                    <input type="text" class="form-control form-input" id="pName">
-                    <span class="text-danger d-none">Please enter valid name</span>
+    <section id="pform" class="d-flex align-items-center">
+        <div class="container py-5">
+            <div class="row gx-5 align-items-center justify-content-between flex-sm-column flex-lg-row-reverse">
+
+                <div class="col-lg-4 col-sm-7 main-crud text-center p-0 h-100">
+                    <h2>Tech Products</h2>
+
+                    <form class="product-form">
+                        <div class="mb-3">
+                            <label for="pName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control form-input" id="pName">
+                            <span class="text-danger d-none err-Msg">Please enter valid name</span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pPrice" class="form-label">Product Price</label>
+                            <input type="number" class="form-control form-input" id="pPrice">
+                            <span class="text-danger d-none err-Msg">Please enter price between 1000 : 10000</span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pCategory" class="form-label">Product Category</label>
+                            <input type="text" class="form-control form-input" id="pCategory">
+                            <span class="text-danger d-none err-Msg">Please enter one of 3 (phone, tablet,
+                                smartwatch)</span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pDes" class="form-label">Product Description</label>
+                            <textarea name="pDes" class="form-control form-input" id="pDes" cols="30" rows="2"
+                                placeholder="Write in less than 250 charecters"></textarea>
+                            <span class="text-danger d-none err-Msg">Please enter less than 250 letter</span>
+                        </div>
+
+                        <button type="submit" id="addBtn" class="btn btn-outline-mine">Add Product</button>
+                        <button id="updateProduct" class="btn btn-outline-mine d-none">Update Product</button>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="pPrice" class="form-label">Product Price</label>
-                    <input type="number" class="form-control form-input" id="pPrice">
-                    <span class="text-danger d-none">Please enter price between 1000 : 10000</span>
-                </div>
-                <div class="mb-3">
-                    <label for="pCategory" class="form-label">Product Category</label>
-                    <input type="text" class="form-control form-input" id="pCategory">
-                    <span class="text-danger d-none">Please enter one of 3 (phone, tablet, smartwatch)</span>
-                </div>
-                <div class="mb-3">
-                    <label for="pDes" class="form-label">Product Description</label>
-                    <textarea name="pDes" class="form-control form-input" id="pDes" cols="30" rows="2"
-                        placeholder="Write in less than 250 charecters"></textarea>
-                    <span class="text-danger d-none">Please enter less than 250 letter</span>
+                <div class="col-lg-8 col-sm-12 table-section">
+                    <div class="mt-5 form-search">
+                        <label for="Psearch" class="form-label text-white">Search a Product</label>
+                        <input type="text" class="form-control" id="Psearch" oninput="searchProduct()">
+                    </div>
+
+                    <table class="table mt-4 table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Index</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Product Price</th>
+                                <th scope="col">Product Category</th>
+                                <th scope="col">Product Description</th>
+                                <th scope="col">Update</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productFrmBody">
+
+                        </tbody>
+                        <span class="text-danger d-none">No product matches your input</span>
+                    </table>
                 </div>
 
-                <button type="submit" id="addBtn" class="btn btn-outline-primary">Add Product</button>
-                <button id="updateProduct" class="btn btn-outline-primary d-none">Update Product</button>
-            </form>
 
-            <div class="mt-5 w-50 ">
-                <label for="Psearch" class="form-label">Search a Product</label>
-                <input type="text" class="form-control" id="Psearch" oninput="searchProduct()">
             </div>
+        </div>
+    </section>
 
-            <table class="table w-75 mt-4 table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Index</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Product Price</th>
-                        <th scope="col">Product Category</th>
-                        <th scope="col">Product Description</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody id="productFrmBody">
-
-                </tbody>
-                <span class="text-danger d-none">No product matches your input</span>
-            </table>
-        </section>
-    </div>
 
 
     <script src="js/script.js"></script>

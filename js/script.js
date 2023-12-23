@@ -77,6 +77,7 @@ function deleteRow(i) {
   productList.splice(originalIndex, 1);
   deleteNewName();
   addToLocalStorage();
+  document.getElementById("Psearch").value = "";
   showInTable(productList);
 }
 
@@ -163,14 +164,16 @@ function newValidation() {
 
   var validArr = [nameRegex, priceRegex, catRegex, desRegex];
   var inputs = document.querySelectorAll(".form-input");
+  var errMsg = document.querySelectorAll(".err-Msg");
   var isValidArr = [];
+  console.log(inputs.length);
 
   for (var i = 0; i < inputs.length; i++) {
     if (validArr[i].test(inputs[i].value)) {
-      errorMsg[i].classList.replace("d-inline-block", "d-none");
+      errMsg[i].classList.replace("d-inline-block", "d-none");
       isValidArr.push(i);
     } else {
-      errorMsg[i].classList.replace("d-none", "d-inline-block");
+      errMsg[i].classList.replace("d-none", "d-inline-block");
     }
   }
   if (isValidArr.length == inputs.length) {
