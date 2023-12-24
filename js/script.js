@@ -160,7 +160,7 @@ function newValidation() {
   var nameRegex = /^([a-z]{2,}\d{0,}([\s]){0,1}){1,2}$/gi;
   var priceRegex = /^(?!0)([0-9]{4}|10000)$/;
   var catRegex = /^((p|P)hone|(t|T)ablet|(s|S)martwatch)$/;
-  var desRegex = /^(?![\s\W]*$)([a-z]|[0-9]|\s|\W){1,250}$/;
+  var desRegex = /^(?![\s\W]*$)([a-z]|[0-9]|\s|\W){1,250}$/gi;
 
   var validArr = [nameRegex, priceRegex, catRegex, desRegex];
   var inputs = document.querySelectorAll(".form-input");
